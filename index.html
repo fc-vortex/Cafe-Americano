@@ -213,6 +213,7 @@ footer {
   margin-top: 30px;
 }
 
+/* MOBILE */
 @media (max-width: 900px) {
   .programs {
     grid-template-columns: repeat(2, 1fr);
@@ -344,20 +345,31 @@ let totalActivity = 0;
 
 const startTime = Date.now();
 
-const balanceElement = document.getElementById("balance");
-const gainElement = document.getElementById("gain");
-const activityElement = document.getElementById("activity");
-const uptimeElement = document.getElementById("uptime");
-const rateElement = document.getElementById("rate");
+const balanceElement =
+  document.getElementById("balance");
+
+const gainElement =
+  document.getElementById("gain");
+
+const activityElement =
+  document.getElementById("activity");
+
+const uptimeElement =
+  document.getElementById("uptime");
+
+const rateElement =
+  document.getElementById("rate");
 
 const programsContainer =
   document.getElementById("programs");
 
 
-// CREATE 42 PROGRAMS
+/* CREATE 42 PROGRAMS */
+
 for (let i = 1; i <= 42; i++) {
 
-  const program = document.createElement("div");
+  const program =
+    document.createElement("div");
 
   program.className = "program";
 
@@ -440,7 +452,10 @@ function updateUptime() {
   programs.forEach((program, index) => {
 
     const time =
-      Math.max(0, elapsed - (index % 10));
+      Math.max(
+        0,
+        elapsed - (index % 10)
+      );
 
     program.querySelector(
       ".program-time"
@@ -456,7 +471,7 @@ function updateUptime() {
 
 function updatePrograms() {
 
-  programs.forEach((program, index) => {
+  programs.forEach((program) => {
 
     const percentage =
       25 +
@@ -479,14 +494,15 @@ function updatePrograms() {
 function increaseMoney() {
 
   /*
-    Increase noticeably:
-    between $0.50 and $1.50
-    every 2 seconds.
+    Each update increases the balance
+    by $0.01 to $0.09.
+
+    This runs every 2 seconds.
   */
 
   const increase =
     Math.floor(
-      (0.50 + Math.random() * 1.01) * 100
+      (0.01 + Math.random() * 0.09) * 100
     ) / 100;
 
 
@@ -521,6 +537,8 @@ function increaseMoney() {
     totalActivity.toLocaleString();
 
 
+  /* CURRENT RATE */
+
   const minutes =
     Math.max(
       (Date.now() - startTime) / 60000,
@@ -540,12 +558,12 @@ function increaseMoney() {
 }
 
 
-/*
-  Start immediately.
-  Then increase every 2 seconds.
-*/
+/* START MONEY */
 
 increaseMoney();
+
+
+/* MONEY UPDATES EVERY 2 SECONDS */
 
 setInterval(
   increaseMoney,
@@ -553,9 +571,7 @@ setInterval(
 );
 
 
-/*
-  Uptime updates every second.
-*/
+/* UPTIME UPDATES EVERY SECOND */
 
 setInterval(
   updateUptime,
@@ -563,15 +579,15 @@ setInterval(
 );
 
 
-/*
-  Program activity updates.
-*/
+/* PROGRAM ACTIVITY UPDATES */
 
 setInterval(
   updatePrograms,
   1500
 );
 
+
+/* INITIAL LOAD */
 
 updateUptime();
 updatePrograms();
